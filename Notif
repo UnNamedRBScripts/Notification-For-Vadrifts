@@ -1,0 +1,32 @@
+-- Create a BindableEvent to manage the notification
+local notificationEvent = Instance.new("BindableEvent")
+
+-- Function to display a customized notification
+local function showCustomNotification()
+    -- Get the StarterGui service
+    local StarterGui = game:GetService("StarterGui")
+
+    -- Display the custom notification
+    StarterGui:SetCore("SendNotification", {
+        Title = "Key: P1d#uT",        -- Title of the notification
+        Text = "might not work (lmk)",   -- Notification message
+        Icon = "rbxassetid://18494546357",    -- Notification icon (use your own image asset ID)
+        Duration = math.huge,                -- Set duration to a very large number
+        Button1 = "alright man",                      -- Text for the button
+        Callback = function(buttonPressed)   -- Callback function for button presses
+            if buttonPressed == "alright man" then
+                print("OK button was pressed")
+                notificationEvent:Fire()    -- Fire the event to stop the loop
+            end
+        end
+    })
+end
+
+-- Function to ensure notification stays until button is clicked
+local function ensureNotification()
+    showCustomNotification()
+    notificationEvent.Event:Wait()  -- Wait for the event to be fired
+end
+
+-- Start ensuring the notification stays
+ensureNotification()
